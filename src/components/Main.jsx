@@ -1,5 +1,6 @@
+import NewsLetter from './NewsLetter';
 import SomeBlogPosts from './SomeBlogPosts';
-import ProductList from './ProductList';
+
 
 const Main = () => {
     return (
@@ -922,9 +923,8 @@ const Main = () => {
 
             <div className="mb-5"></div>{/* End .mb5  */}
 
-
-             <ProductList />                       
             <SomeBlogPosts />
+            <NewsLetter />
         </main>
     );
 }

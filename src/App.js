@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import Main from './components/Main';
+import Footer from './components/Footer';
+import MobileMenuContainer from './components/MobileMenuContainer';
+import FakeData from './components/FakeData.json';
 
 function App() {
+
+  console.log(FakeData);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+      <div className="page-wrapper">
+        <Header />
+
+        <Main />
+
+        <Footer />
+
+      </div>{/* End .page-wrapper  */}
+      <button id="scroll-top" title="Back to Top"><i className="icon-arrow-up"></i></button>
+
+      {/* Mobile Menu  */}
+      <div className="mobile-menu-overlay"></div>{/* End .mobil-menu-overlay  */}
+
+      <MobileMenuContainer />
+
+    </>
   );
 }
 

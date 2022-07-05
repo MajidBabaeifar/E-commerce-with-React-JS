@@ -1,0 +1,13 @@
+.--product-card {
+    padding: 10px !important;
+    border: none !important;
+}
+
+.product-image {
+    width: 100% !important;
+    height: 300px;
+    object-fit: cover;
+}
+.product-title{
+    margin-top: 5px;
+}

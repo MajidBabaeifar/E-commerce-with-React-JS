@@ -3,7 +3,7 @@ import Header from './components/Header'
 import Main from './components/Main';
 import Footer from './components/Footer';
 import MobileMenuContainer from './components/MobileMenuContainer';
-import Data from './components/Data/Data';
+
 import { Route, Routes } from 'react-router';
 import ProductList from './components/ProductList';
 import BlogPostsList from './components/BlogPostsList';
@@ -12,8 +12,6 @@ import WishList from './components/WishList';
 import Error404 from './components/Error404';
 
 function App() {
-
-  console.log(Data);
   return (
     <>
       <div className="page-wrapper">
@@ -32,7 +30,6 @@ function App() {
       {/* Mobile Menu  */}
       <div className="mobile-menu-overlay"></div>{/* End .mobil-menu-overlay  */}
       <MobileMenuContainer />
-
     </>
   );
 }

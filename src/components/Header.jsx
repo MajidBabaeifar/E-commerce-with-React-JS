@@ -89,7 +89,7 @@ const Hedear = () => {
                         </div>{/* End .header-search  */}
 
                         <div className="dropdown cart-dropdown">
-                            <Link to="#" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <Link to="/cart" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i className="icon-shopping-cart"></i>
                                 <span className="cart-count">2</span>
                             </Link>

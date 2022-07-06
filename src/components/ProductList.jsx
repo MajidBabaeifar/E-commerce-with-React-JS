@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import data from './Data/Data.json'
+import { useContext } from 'react';
+import { CartContext } from './context/MyContext';
 const ProductList = () => {
+    const { cartList, setCartList } = useContext(CartContext)
     const catrgoryDevider = (num) => {
         switch (num) {
             case 1:
@@ -48,7 +51,7 @@ const ProductList = () => {
                                             <label htmlFor="sortby">Sort by:</label>
                                             <div className="select-custom">
                                                 <select name="sortby" id="sortby" className="form-control">
-                                                    <option value="popularity" selected="selected">Most Popular</option>
+                                                    <option value="popularity" >Most Popular</option>
                                                     <option value="rating">Most Rated</option>
                                                     <option value="date">Date</option>
                                                 </select>
@@ -64,7 +67,7 @@ const ProductList = () => {
                                         {/* start product ***************************************************************************************/}
 
                                         {data.map((product) => (
-                                            <div className="col-6 col-md-4 col-lg-4 --product-card">
+                                            <div key={product.id} className="col-6 col-md-4 col-lg-4 --product-card">
                                                 <div className="product product-7 text-center">
                                                     <figure className="product-media">
                                                         {product.isNew && <span className="product-label label-new">New</span>}
@@ -78,7 +81,7 @@ const ProductList = () => {
                                                         </div>{/* End .product-action-vertical */}
 
                                                         <div className="product-action">
-                                                            <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
+                                                            <div className="btn-product btn-cart" onClick={() => setCartList([...cartList, product])}><span>add to cart</span></div>
                                                         </div>{/* End .product-action */}
                                                     </figure>{/* End .product-media */}
 

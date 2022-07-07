@@ -1,13 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from './context/MyContext';
+import { Link } from 'react-router-dom';
 
 
 const Cart = () => {
 
+    useEffect(() => {
+    }, [])
+
     const { cartList, setCartList } = useContext(CartContext)
+    const calculateTotal = cartList.reduce(
+        (previousValue, currentValue) => previousValue + parseInt(currentValue.price) * currentValue.quantity,
+        0
+    );
 
     return (
         <main className="main">
+
             <div className="page-header text-center" style={{ backgroundImage: "url('assets/images/page-header-bg.jpg')" }}>
                 <div className="container">
                     <h1 className="page-title">Shopping Cart<span>Shop</span></h1>
@@ -41,47 +50,48 @@ const Cart = () => {
 
                                     <tbody>
                                         {cartList.map((product) => (
-                                            <tr>
+                                            <tr key={product.id}>
                                                 <td className="product-col">
                                                     <div className="product">
-                                                        <figure className="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/products/table/product-1.jpg" alt="Product image" />
-                                                            </a>
-                                                        </figure>
+
+                                                        <Link to="">
+                                                            <img className="--cart--image" src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt={product.fullName} />
+                                                        </Link>
+
 
                                                         <h3 className="product-title">
                                                             <a href="#">{product.fullName}</a>
                                                         </h3>{/* End .product-title */}
                                                     </div>{/* End .product */}
                                                 </td>
-                                                <td className="price-col">$84.00</td>
+                                                <td className="price-col">{`${product.price}$`}</td>
                                                 <td className="quantity-col">
                                                     <div className="cart-product-quantity">
-                                                        <input type="number" className="form-control" min="1" max="10" step="1" data-decimals="0" required />
+                                                        <input type="number" className="form-control" min="1" max="10" step="1" data-decimals="0" required value={product.quantity} onChange={(e) => {
+                                                            setCartList(prevState => {
+                                                                const newState = prevState.map(obj => {
+                                                                    // 👇️ if id equals 2, update country property
+                                                                    if (obj === product) {
+                                                                        return { ...obj, quantity: parseInt(e.target.value) };
+                                                                    }
+                                                                    // 👇️ otherwise return object as is
+                                                                    return obj;
+                                                                });
+                                                                console.log(product.quantity);
+                                                                return newState;
+                                                            });
+                                                        }}
+                                                        />
                                                     </div>{/* End .cart-product-quantity */}
                                                 </td>
-                                                <td className="total-col">$84.00</td>
+                                                <td className="total-col">{product.price * product.quantity}$</td>
                                                 <td className="remove-col"><button className="btn-remove"><i className="icon-close"></i></button></td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>{/* End .table table-wishlist */}
 
-                                <div className="cart-bottom">
-                                    <div className="cart-discount">
-                                        <form action="#">
-                                            <div className="input-group">
-                                                <input type="text" className="form-control" required placeholder="coupon code" />
-                                                <div className="input-group-append">
-                                                    <button className="btn btn-outline-primary-2" type="submit"><i className="icon-long-arrow-right"></i></button>
-                                                </div>{/* .End .input-group-append */}
-                                            </div>{/* End .input-group */}
-                                        </form>
-                                    </div>{/* End .cart-discount */}
-
-                                    <a href="#" className="btn btn-outline-dark-2"><span>UPDATE CART</span><i className="icon-refresh"></i></a>
-                                </div>{/* End .cart-bottom */}
+                                
                             </div>{/* End .col-lg-9 */}
                             <aside className="col-lg-3">
                                 <div className="summary summary-cart">
@@ -90,60 +100,17 @@ const Cart = () => {
                                     <table className="table table-summary">
                                         <tbody>
                                             <tr className="summary-subtotal">
-                                                <td>Subtotal:</td>
-                                                <td>$160.00</td>
-                                            </tr>{/* End .summary-subtotal */}
-                                            <tr className="summary-shipping">
-                                                <td>Shipping:</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-
-                                            <tr className="summary-shipping-row">
-                                                <td>
-                                                    <div className="custom-control custom-radio">
-                                                        <input type="radio" id="free-shipping" name="shipping" className="custom-control-input" />
-                                                        <label className="custom-control-label" htmlFor="free-shipping">Free Shipping</label>
-                                                    </div>{/* End .custom-control */}
-                                                </td>
-                                                <td>$0.00</td>
-                                            </tr>{/* End .summary-shipping-row */}
-
-                                            <tr className="summary-shipping-row">
-                                                <td>
-                                                    <div className="custom-control custom-radio">
-                                                        <input type="radio" id="standart-shipping" name="shipping" className="custom-control-input" />
-                                                        <label className="custom-control-label" htmlFor="standart-shipping">Standart:</label>
-                                                    </div>{/* End .custom-control */}
-                                                </td>
-                                                <td>$10.00</td>
-                                            </tr>{/* End .summary-shipping-row */}
-
-                                            <tr className="summary-shipping-row">
-                                                <td>
-                                                    <div className="custom-control custom-radio">
-                                                        <input type="radio" id="express-shipping" name="shipping" className="custom-control-input" />
-                                                        <label className="custom-control-label" htmlFor="express-shipping">Express:</label>
-                                                    </div>{/* End .custom-control */}
-                                                </td>
-                                                <td>$20.00</td>
-                                            </tr>{/* End .summary-shipping-row */}
-
-                                            <tr className="summary-shipping-estimate">
-                                                <td>Estimate for Your Country<br /> <a href="dashboard.html">Change address</a></td>
-                                                <td>&nbsp;</td>
-                                            </tr>{/* End .summary-shipping-estimate */}
-
-                                            <tr className="summary-total">
                                                 <td>Total:</td>
-                                                <td>$160.00</td>
-                                            </tr>{/* End .summary-total */}
+                                                <td>{`${calculateTotal} $`}</td>
+                                            </tr>{/* End .summary-subtotal */}
+                                            
                                         </tbody>
                                     </table>{/* End .table table-summary */}
 
-                                    <a href="checkout.html" className="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                                    <a href="#" className="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
                                 </div>{/* End .summary */}
 
-                                <a href="category.html" className="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i className="icon-refresh"></i></a>
+                                
                             </aside>{/* End .col-lg-3 */}
                         </div>{/* End .row */}
                     </div>{/* End .container */}

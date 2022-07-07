@@ -28,3 +28,7 @@ export default FakeData;
 
 product categories
 
+
+features : 
+1. context API (global context with HOC)
+2. using router

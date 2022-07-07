@@ -71,8 +71,8 @@ const ProductList = () => {
                                                 <div className="product product-7 text-center">
                                                     <figure className="product-media">
                                                         {product.isNew && <span className="product-label label-new">New</span>}
-                                                        <Link to="#">
-                                                            <img src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="Product image" className="product-image" />
+                                                        <Link to="">
+                                                            <img src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt={product.name} className="product-image" />
                                                         </Link>
 
                                                         <div className="product-action-vertical">
@@ -80,8 +80,26 @@ const ProductList = () => {
                                                             <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                                         </div>{/* End .product-action-vertical */}
 
-                                                        <div className="product-action">
-                                                            <div className="btn-product btn-cart" onClick={() => setCartList([...cartList, product])}><span>add to cart</span></div>
+                                                        <div className="cursor-pointer product-action">
+                                                            {cartList.some(c => c.name === product.name)
+                                                                ?
+                                                                (<div
+                                                                    className="cursor-pointer btn-product btn-cart btn-danger"
+                                                                    onClick={() => setCartList((prevCart => prevCart.filter(c => c.name !== product.name)))}
+                                                                >
+                                                                    <span>remove from cart</span>
+                                                                </div>)
+                                                                :
+                                                                (<div
+                                                                    className=" btn-product btn-cart"
+                                                                    onClick={() => setCartList(prevCart => {
+                                                                        console.log(cartList);
+                                                                        return [...prevCart, { ...product, quantity: 1 }]
+                                                                    })}
+                                                                >
+                                                                    <span>add to cart</span>
+                                                                </div>)
+                                                            }
                                                         </div>{/* End .product-action */}
                                                     </figure>{/* End .product-media */}
 
@@ -111,7 +129,7 @@ const ProductList = () => {
                                 <nav aria-label="Page navigation">
                                     <ul className="pagination justify-content-center">
                                         <li className="page-item disabled">
-                                            <a className="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                            <a className="page-link page-link-prev" href="#" aria-label="Previous" tabIndex="-1" aria-disabled="true">
                                                 <span aria-hidden="true"><i className="icon-long-arrow-left"></i></span>Prev
                                             </a>
                                         </li>

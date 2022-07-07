@@ -32,3 +32,6 @@ product categories
 features : 
 1. context API (global context with HOC)
 2. using router
+3. implementing add to cart - remove from cart - quantity for each product - calculate total price
+4. implementing cart drop down menu
+5. pagination

@@ -12550,6 +12550,9 @@ button:focus {
     padding-right: .5rem;
     margin-bottom: 1rem
 }
+.product-gallery-item-image{
+    height: 100%;
+}
 
 .max-col-6 .product-gallery-item {
     flex: 0 0 16.66%;

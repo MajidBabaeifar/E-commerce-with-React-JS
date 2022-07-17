@@ -69,7 +69,7 @@ const MyContext = ({ children }) => {
 
     return (
         <FilterContext.Provider value={{
-            value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
+            data, value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
         }}>
             <PaginationContext.Provider value={{
                 currentPage, setCurrentPage

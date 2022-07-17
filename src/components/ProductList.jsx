@@ -3,7 +3,7 @@ import { useContext, useRef } from 'react';
 import { CartContext, PaginationContext, FilterContext } from './context/MyContext';
 import Pagination from './pagination';
 import Filters from './Filters';
-
+import Ratings from './Ratings';
 
 
 const ProductList = () => {
@@ -11,6 +11,7 @@ const ProductList = () => {
     const { currentPage } = useContext(PaginationContext)
     const { filterData, handleFilter, category, ProductsInThisPage } = useContext(FilterContext)
     const myRef = useRef(null)
+
 
     const executeScroll = () => myRef.current.scrollIntoView()
     const catrgoryDevider = (num) => {
@@ -90,7 +91,7 @@ const ProductList = () => {
 
                                                         <div className="product-action-vertical">
                                                             <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                                            <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                                            <Link to={`./${product.id}`} className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></Link>
                                                         </div>{/* End .product-action-vertical */}
 
                                                         <div className="cursor-pointer product-action">
@@ -125,12 +126,7 @@ const ProductList = () => {
                                                         <div className="product-price">
                                                             {`${product.price} US$`}
                                                         </div>{/* End .product-price */}
-                                                        <div className="ratings-container">
-                                                            <div className="ratings">
-                                                                <div className="ratings-val" style={{ width: `${product.ratings * 20}%` }}></div>{/* End .ratings-val */}
-                                                            </div>{/* End .ratings */}
-                                                            <span className="ratings-text">( 2 Reviews )</span>
-                                                        </div>{/* End .rating-container */}
+                                                        <Ratings product={product} />
                                                     </div>{/* End .product-body */}
                                                 </div>
                                             </div>

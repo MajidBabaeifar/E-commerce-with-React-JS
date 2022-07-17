@@ -10,6 +10,7 @@ import BlogPostsList from './components/BlogPostsList';
 import Cart from './components/Cart';
 import WishList from './components/WishList';
 import Error404 from './components/Error404';
+import SingleProductPage from './components/SingleProductPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/productlist' element={<ProductList />} />
+          <Route path='/productlist/:productId' element={<SingleProductPage />} />
           <Route path='/blogpostslist' element={<BlogPostsList />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/wishlist' element={<WishList />} />

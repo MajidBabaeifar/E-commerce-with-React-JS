@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
-import data from './Data/Data.json'
 import { useContext, useRef } from 'react';
-import { CartContext, PaginationContext } from './context/MyContext';
+import { CartContext, PaginationContext, FilterContext } from './context/MyContext';
 import Pagination from './pagination';
-import { useState } from 'react';
 import Filters from './Filters';
 
 
@@ -11,50 +9,10 @@ import Filters from './Filters';
 const ProductList = () => {
     const { cartList, setCartList } = useContext(CartContext)
     const { currentPage } = useContext(PaginationContext)
-    const [value1, setValue1] = useState([0, 500]);
+    const { filterData, handleFilter, category, ProductsInThisPage } = useContext(FilterContext)
     const myRef = useRef(null)
-    const [category, setCategory] = useState({
-        isWoman: true,
-        isMen: true,
-        isKids: true,
-        sortBy: ""
-    })
-    const filterData = () => {
-        var fData = data
-        if (!category.isKids) {
-            fData = fData.filter((c) => c.group !== 3)
-        }
-        if (!category.isMen) {
-            fData = fData.filter((c) => c.group !== 1)
-        }
-        if (!category.isWoman) {
-            fData = fData.filter((c) => c.group !== 2)
-        }
-        fData = fData.filter((c) => c.price >= value1[0] && c.price <= value1[1])
-        switch (category.sortBy) {
-            case "pricea":
-                fData = fData.sort((a, b) => parseInt(a.price) - parseInt(b.price))
-                break;
-            case "priced":
-                fData = fData.sort((a, b) => parseInt(b.price) - parseInt(a.price))
-                break;
-            case "ratinga":
-                fData = fData.sort((a, b) => a.ratings - b.ratings)
-                break;
-            case "ratingd":
-                fData = fData.sort((a, b) => b.ratings - a.ratings)
-                break;
-            case "title":
-                fData = fData.sort((a, b) => a.name.localeCompare(b.name))
-                break;
-            default:
-                break;
-        }
-        return fData
-    }
 
     const executeScroll = () => myRef.current.scrollIntoView()
-    const ProductsInThisPage = filterData().slice((currentPage - 1) * 16, currentPage * 16)
     const catrgoryDevider = (num) => {
         switch (num) {
             case 1:
@@ -67,12 +25,7 @@ const ProductList = () => {
                 break;
         }
     }
-    const handleFilter = (e) => {
-        setCategory({
-            ...category,
-            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
-        })
-    }
+
 
     return (
         <>
@@ -108,6 +61,7 @@ const ProductList = () => {
                                             <label htmlFor="sortby">Sort by:</label>
                                             <div className="select-custom">
                                                 <select name="sortBy" id="sortby" className="form-control" onChange={handleFilter} value={category.sortBy}>
+                                                    <option value="" >--choose--</option>
                                                     <option value="pricea" >price ascending</option>
                                                     <option value="priced">price descending</option>
                                                     <option value="ratinga" >rating ascending</option>
@@ -173,7 +127,7 @@ const ProductList = () => {
                                                         </div>{/* End .product-price */}
                                                         <div className="ratings-container">
                                                             <div className="ratings">
-                                                                <div className="ratings-val" style={{ width: `${product.ratings*20}%` }}></div>{/* End .ratings-val */}
+                                                                <div className="ratings-val" style={{ width: `${product.ratings * 20}%` }}></div>{/* End .ratings-val */}
                                                             </div>{/* End .ratings */}
                                                             <span className="ratings-text">( 2 Reviews )</span>
                                                         </div>{/* End .rating-container */}
@@ -190,13 +144,7 @@ const ProductList = () => {
                                     filterData={filterData}
                                 />
                             </div>{/* End .col-lg-9 */}
-                            <Filters
-                                category={category}
-                                setCategory={setCategory}
-                                value1={value1}
-                                setValue1={setValue1}
-                                handleFilter={handleFilter}
-                            />
+                            <Filters />
                         </div>{/* End .row */}
                     </div>{/* End .container */}
                 </div>{/* End .page-content */}

@@ -1,6 +1,10 @@
 import PriceFilter from './PriceFilter';
+import { useContext } from 'react';
+import { FilterContext } from './context/MyContext';
 
-const Filters = ({ category, setCategory, value1, setValue1, handleFilter }) => {
+const Filters = () => {
+    const { value1, setValue1, category, setCategory, handleFilter, noOfMen, noOfWoman, noOfKids } = useContext(FilterContext)
+
     return (
         <aside className="col-lg-3 order-lg-first">
             <div className="sidebar sidebar-shop">
@@ -34,7 +38,7 @@ const Filters = ({ category, setCategory, value1, setValue1, handleFilter }) => 
                                         <input onChange={(e) => handleFilter(e)} type="checkbox" name="isWoman" className="custom-control-input" id="woman" checked={category.isWoman} />
                                         <label className="custom-control-label" htmlFor="woman">Women</label>
                                     </div>{/* End .custom-checkbox */}
-                                    <span className="item-count">3</span>
+                                    <span className="item-count">{noOfWoman}</span>
                                 </div>{/* End .filter-item */}
 
                                 <div className="filter-item">
@@ -42,7 +46,7 @@ const Filters = ({ category, setCategory, value1, setValue1, handleFilter }) => 
                                         <input onChange={(e) => handleFilter(e)} type="checkbox" name="isMen" checked={category.isMen} className="custom-control-input" id="men" />
                                         <label className="custom-control-label" htmlFor="men">Men</label>
                                     </div>{/* End .custom-checkbox */}
-                                    <span className="item-count">3</span>
+                                    <span className="item-count">{noOfMen}</span>
                                 </div>{/* End .filter-item */}
 
                                 <div className="filter-item">
@@ -50,7 +54,7 @@ const Filters = ({ category, setCategory, value1, setValue1, handleFilter }) => 
                                         <input onChange={(e) => handleFilter(e)} type="checkbox" name="isKids" checked={category.isKids} className="custom-control-input" id="kids" />
                                         <label className="custom-control-label" htmlFor="kids">Kids</label>
                                     </div>{/* End .custom-checkbox */}
-                                    <span className="item-count">3</span>
+                                    <span className="item-count">{noOfKids}</span>
                                 </div>{/* End .filter-item */}
 
                             </div>{/* End .filter-items */}

@@ -85,7 +85,7 @@ const Cart = () => {
                                                     </div>{/* End .cart-product-quantity */}
                                                 </td>
                                                 <td className="total-col">{product.price * product.quantity}$</td>
-                                                <td className="remove-col"><button className="btn-remove"><i className="icon-close"></i></button></td>
+                                                <td className="remove-col" onClick={()=>setCartList(prevList => prevList.filter((c)=>c.id !== product.id))}><button className="btn-remove"><i className="icon-close"></i></button></td>
                                             </tr>
                                         ))}
                                     </tbody>

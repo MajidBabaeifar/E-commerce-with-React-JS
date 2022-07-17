@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .--product-card {
     padding: 10px !important;
     border: none !important;
@@ -60,4 +64,12 @@
     -moz-transition: 0.5s;
     -ms-transition: 0.5s;
     -o-transition: 0.5s;
+}
+
+.sidebar-filter-clear {
+    cursor: pointer;
+}
+
+.sidebar-filter-clear:hover {
+    color: #bf8040;
 }

@@ -12,6 +12,7 @@ const SingleProductPage = () => {
     const { cartList, setCartList } = useContext(CartContext)
     const product = data.find((elmnt) => elmnt.id === parseInt(pId))
     const [selectedImage, setSelectedImage] = useState(0)
+    const [modal, setModal] = useState(false)
 
     const catrgoryDevider = (num) => {
         switch (num) {
@@ -27,22 +28,22 @@ const SingleProductPage = () => {
     }
 
     return (
-        <main className="main">
+        <main>
             <nav aria-label="breadcrumb" className="breadcrumb-nav border-0 mb-0">
                 <div className="container d-flex align-items-center">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                         <li className="breadcrumb-item"><Link to="/productlist">Products</Link></li>
-                        <li className="breadcrumb-item active" aria-current="page">Default</li>
+                        <li className="breadcrumb-item active" aria-current="page">{product.name}</li>
                     </ol>
 
                     <nav className="product-pager ml-auto" aria-label="Product">
-                        <Link onClick={()=>setpId(prev => prev>0 ? parseInt(prev) - 1 : prev)} className="product-pager-link product-pager-prev" to={`/productlist/${pId>0 ? parseInt(pId) - 1 : pId}`} aria-label="Previous" tabIndex="-1">
+                        <Link onClick={() => setpId(prev => prev > 0 ? parseInt(prev) - 1 : prev)} className="product-pager-link product-pager-prev" to={`/productlist/${pId > 0 ? parseInt(pId) - 1 : pId}`} aria-label="Previous" tabIndex="-1">
                             <i className="icon-angle-left"></i>
                             <span>Prev</span>
                         </Link>
 
-                        <Link onClick={()=>setpId(prev => prev<data.length ? parseInt(prev) + 1 : prev)} className="product-pager-link product-pager-next" to={`/productlist/${ pId<data.length ? parseInt(pId) + 1 : pId}`} aria-label="Next" tabIndex="-1">
+                        <Link onClick={() => setpId(prev => prev < data.length ? parseInt(prev) + 1 : prev)} className="product-pager-link product-pager-next" to={`/productlist/${pId < data.length ? parseInt(pId) + 1 : pId}`} aria-label="Next" tabIndex="-1">
                             <span>Next</span>
                             <i className="icon-angle-right"></i>
                         </Link>
@@ -58,12 +59,9 @@ const SingleProductPage = () => {
                                 <div className="product-gallery product-gallery-vertical">
                                     <div className="row">
                                         <figure className="product-main-image">
-                                            
+
                                             <img id="product-zoom" src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="product image" />
 
-                                            <a href="#" id="btn-product-gallery" className="btn-product-gallery">
-                                                <i className="icon-arrows"></i>
-                                            </a>
                                         </figure>{/* End .product-main-image */}
 
                                         <div id="product-zoom-gallery" className="product-image-gallery">

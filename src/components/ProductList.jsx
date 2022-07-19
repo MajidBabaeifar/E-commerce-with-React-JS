@@ -4,6 +4,7 @@ import { CartContext, PaginationContext, FilterContext } from './context/MyConte
 import Pagination from './pagination';
 import Filters from './Filters';
 import Ratings from './Ratings';
+import { useParams } from 'react-router';
 
 
 const ProductList = () => {

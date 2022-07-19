@@ -7,10 +7,10 @@ import Ratings from './Ratings';
 
 const SingleProductPage = () => {
     const { productId } = useParams();
+    const [pId, setpId] = useState(productId)
     const { data } = useContext(FilterContext)
     const { cartList, setCartList } = useContext(CartContext)
-    const product = data.find((elmnt) => elmnt.id === parseInt(productId))
-    const [centerImage, setCenterImage] = useState(`https://picsum.photos/id/${product.id + 500}/200/300`)
+    const product = data.find((elmnt) => elmnt.id === parseInt(pId))
     const [selectedImage, setSelectedImage] = useState(0)
 
     const catrgoryDevider = (num) => {
@@ -31,21 +31,21 @@ const SingleProductPage = () => {
             <nav aria-label="breadcrumb" className="breadcrumb-nav border-0 mb-0">
                 <div className="container d-flex align-items-center">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li className="breadcrumb-item"><a href="#">Products</a></li>
+                        <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                        <li className="breadcrumb-item"><Link to="/productlist">Products</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">Default</li>
                     </ol>
 
                     <nav className="product-pager ml-auto" aria-label="Product">
-                        <a className="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabIndex="-1">
+                        <Link onClick={()=>setpId(prev => prev>0 ? parseInt(prev) - 1 : prev)} className="product-pager-link product-pager-prev" to={`/productlist/${pId>0 ? parseInt(pId) - 1 : pId}`} aria-label="Previous" tabIndex="-1">
                             <i className="icon-angle-left"></i>
                             <span>Prev</span>
-                        </a>
+                        </Link>
 
-                        <a className="product-pager-link product-pager-next" href="#" aria-label="Next" tabIndex="-1">
+                        <Link onClick={()=>setpId(prev => prev<data.length ? parseInt(prev) + 1 : prev)} className="product-pager-link product-pager-next" to={`/productlist/${ pId<data.length ? parseInt(pId) + 1 : pId}`} aria-label="Next" tabIndex="-1">
                             <span>Next</span>
                             <i className="icon-angle-right"></i>
-                        </a>
+                        </Link>
                     </nav>{/* End .pager-nav */}
                 </div>{/* End .container */}
             </nav>{/* End .breadcrumb-nav */}
@@ -58,7 +58,8 @@ const SingleProductPage = () => {
                                 <div className="product-gallery product-gallery-vertical">
                                     <div className="row">
                                         <figure className="product-main-image">
-                                            <img id="product-zoom" src={centerImage} data-zoom-image="assets/images/products/single/1-big.jpg" alt="product image" />
+                                            
+                                            <img id="product-zoom" src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="product image" />
 
                                             <a href="#" id="btn-product-gallery" className="btn-product-gallery">
                                                 <i className="icon-arrows"></i>
@@ -75,7 +76,7 @@ const SingleProductPage = () => {
                                                 >
                                                     <img
                                                         className="product-gallery-item-image"
-                                                        src={centerImage}
+                                                        src={`https://picsum.photos/id/${product.id + 500}/200/300`}
                                                         alt="product side"
                                                     />
                                                 </Link>
@@ -105,10 +106,10 @@ const SingleProductPage = () => {
 
                                         <div className="product-nav product-nav-thumbs">
                                             <a href="#" className="active">
-                                                <img style={{ height: "100%" }} src={centerImage} alt="product desc" />
+                                                <img style={{ height: "100%" }} src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="product desc" />
                                             </a>
                                             <a href="#">
-                                                <img style={{ height: "100%" }} src={centerImage} alt="product desc" />
+                                                <img style={{ height: "100%" }} src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="product desc" />
                                             </a>
                                         </div>{/* End .product-nav */}
                                     </div>{/* End .details-filter-row */}
@@ -274,234 +275,6 @@ const SingleProductPage = () => {
                             </div>{/* .End .tab-pane */}
                         </div>{/* End .tab-content */}
                     </div>{/* End .product-details-tab */}
-
-                    <h2 className="title text-center mb-4">You May Also Like</h2>{/* End .title text-center */}
-
-                    <div className="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
-                        data-owl-options='{
-                        "nav": false, 
-                        "dots": true,
-                        "margin": 20,
-                        "loop": false,
-                        "responsive": {
-                            "0": {
-                                "items":1
-                            },
-                            "480": {
-                                "items":2
-                            },
-                            "768": {
-                                "items":3
-                            },
-                            "992": {
-                                "items":4
-                            },
-                            "1200": {
-                                "items":4,
-                                "nav": true,
-                                "dots": false
-                            }
-                        }
-                    }'>
-                        <div className="product product-7 text-center">
-                            <figure className="product-media">
-                                <span className="product-label label-new">New</span>
-                                <a href="product.html">
-                                    <img src={product.image} alt="Product image" className="product-image" />
-                                </a>
-
-                                <div className="product-action-vertical">
-                                    <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" className="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div>{/* End .product-action-vertical */}
-
-                                <div className="product-action">
-                                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>{/* End .product-action */}
-                            </figure>{/* End .product-media */}
-
-                            <div className="product-body">
-                                <div className="product-cat">
-                                    <a href="#">Women</a>
-                                </div>{/* End .product-cat */}
-                                <h3 className="product-title"><a href="product.html">Brown paperbag waist <br />pencil skirt</a></h3>{/* End .product-title */}
-                                <div className="product-price">
-                                    $60.00
-                                </div>{/* End .product-price */}
-                                <div className="ratings-container">
-                                    <div className="ratings">
-                                        <div className="ratings-val" style={{ width: "20%" }}></div>{/* End .ratings-val */}
-                                    </div>{/* End .ratings */}
-                                    <span className="ratings-text">( 2 Reviews )</span>
-                                </div>{/* End .rating-container */}
-
-                                <div className="product-nav product-nav-thumbs">
-                                    <a href="#" className="active">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-                                    <a href="#">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-
-                                    <a href="#">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-                                </div>{/* End .product-nav */}
-                            </div>{/* End .product-body */}
-                        </div>{/* End .product */}
-
-                        <div className="product product-7 text-center">
-                            <figure className="product-media">
-                                <span className="product-label label-out">Out of Stock</span>
-                                <a href="product.html">
-                                    <img src={product.image} alt="Product image" className="product-image" />
-                                </a>
-
-                                <div className="product-action-vertical">
-                                    <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" className="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div>{/* End .product-action-vertical */}
-
-                                <div className="product-action">
-                                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>{/* End .product-action */}
-                            </figure>{/* End .product-media */}
-
-                            <div className="product-body">
-                                <div className="product-cat">
-                                    <a href="#">Jackets</a>
-                                </div>{/* End .product-cat */}
-                                <h3 className="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3>{/* End .product-title */}
-                                <div className="product-price">
-                                    <span className="out-price">$120.00</span>
-                                </div>{/* End .product-price */}
-                                <div className="ratings-container">
-                                    <div className="ratings">
-                                        <div className="ratings-val" style={{ width: "80%" }}></div>{/* End .ratings-val */}
-                                    </div>{/* End .ratings */}
-                                    <span className="ratings-text">( 6 Reviews )</span>
-                                </div>{/* End .rating-container */}
-                            </div>{/* End .product-body */}
-                        </div>{/* End .product */}
-
-                        <div className="product product-7 text-center">
-                            <figure className="product-media">
-                                <span className="product-label label-top">Top</span>
-                                <a href="product.html">
-                                    <img src={product.image} alt="Product image" className="product-image" />
-                                </a>
-
-                                <div className="product-action-vertical">
-                                    <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" className="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div>{/* End .product-action-vertical */}
-
-                                <div className="product-action">
-                                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>{/* End .product-action */}
-                            </figure>{/* End .product-media */}
-
-                            <div className="product-body">
-                                <div className="product-cat">
-                                    <a href="#">Shoes</a>
-                                </div>{/* End .product-cat */}
-                                <h3 className="product-title"><a href="product.html">Light brown studded Wide fit wedges</a></h3>{/* End .product-title */}
-                                <div className="product-price">
-                                    $110.00
-                                </div>{/* End .product-price */}
-                                <div className="ratings-container">
-                                    <div className="ratings">
-                                        <div className="ratings-val" style={{ width: "80%" }}></div>{/* End .ratings-val */}
-                                    </div>{/* End .ratings */}
-                                    <span className="ratings-text">( 1 Reviews )</span>
-                                </div>{/* End .rating-container */}
-
-                                <div className="product-nav product-nav-thumbs">
-                                    <a href="#" className="active">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-                                    <a href="#">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-
-                                    <a href="#">
-                                        <img src={product.image} alt="product desc" />
-                                    </a>
-                                </div>{/* End .product-nav */}
-                            </div>{/* End .product-body */}
-                        </div>{/* End .product */}
-
-                        <div className="product product-7 text-center">
-                            <figure className="product-media">
-                                <a href="product.html">
-                                    <img src={product.image} alt="Product image" className="product-image" />
-                                </a>
-
-                                <div className="product-action-vertical">
-                                    <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" className="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div>{/* End .product-action-vertical */}
-
-                                <div className="product-action">
-                                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>{/* End .product-action */}
-                            </figure>{/* End .product-media */}
-
-                            <div className="product-body">
-                                <div className="product-cat">
-                                    <a href="#">Jumpers</a>
-                                </div>{/* End .product-cat */}
-                                <h3 className="product-title"><a href="product.html">Yellow button front tea top</a></h3>{/* End .product-title */}
-                                <div className="product-price">
-                                    $56.00
-                                </div>{/* End .product-price */}
-                                <div className="ratings-container">
-                                    <div className="ratings">
-                                        <div className="ratings-val" style={{ width: "0%" }}></div>{/* End .ratings-val */}
-                                    </div>{/* End .ratings */}
-                                    <span className="ratings-text">( 0 Reviews )</span>
-                                </div>{/* End .rating-container */}
-                            </div>{/* End .product-body */}
-                        </div>{/* End .product */}
-
-                        <div className="product product-7 text-center">
-                            <figure className="product-media">
-                                <a href="product.html">
-                                    <img src={product.image} alt="Product image" className="product-image" />
-                                </a>
-
-                                <div className="product-action-vertical">
-                                    <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    <a href="popup/quickView.html" className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" className="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                </div>{/* End .product-action-vertical */}
-
-                                <div className="product-action">
-                                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>{/* End .product-action */}
-                            </figure>{/* End .product-media */}
-
-                            <div className="product-body">
-                                <div className="product-cat">
-                                    <a href="#">Jeans</a>
-                                </div>{/* End .product-cat */}
-                                <h3 className="product-title"><a href="product.html">Blue utility pinafore denim dress</a></h3>{/* End .product-title */}
-                                <div className="product-price">
-                                    $76.00
-                                </div>{/* End .product-price */}
-                                <div className="ratings-container">
-                                    <div className="ratings">
-                                        <div className="ratings-val" style={{ width: "20%" }}></div>{/* End .ratings-val */}
-                                    </div>{/* End .ratings */}
-                                    <span className="ratings-text">( 2 Reviews )</span>
-                                </div>{/* End .rating-container */}
-                            </div>{/* End .product-body */}
-                        </div>{/* End .product */}
-                    </div>{/* End .owl-carousel */}
                 </div>{/* End .container */}
             </div>{/* End .page-content */}
         </main>

@@ -1,5 +1,5 @@
 import NewsLetter from './NewsLetter';
-import SomeBlogPosts from './SomeBlogPosts';
+import SomeBlogPosts from './../blog/SomeBlogPosts';
 
 
 const Main = () => {

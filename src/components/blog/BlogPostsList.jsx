@@ -1,4 +1,4 @@
-import NewsLetter from './NewsLetter';
+import NewsLetter from '../home/NewsLetter';
 const BlogPostsList = () => {
     return (
         <main className="main">

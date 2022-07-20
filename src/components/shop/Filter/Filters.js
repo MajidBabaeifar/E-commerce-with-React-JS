@@ -1,6 +1,7 @@
-import PriceFilter from './PriceFilter';
 import { useContext } from 'react';
-import { FilterContext } from './context/MyContext';
+
+import PriceFilter from './PriceFilter';
+import { FilterContext } from '../../context/MyContext';
 
 const Filters = () => {
     const { value1, setValue1, category, setCategory, handleFilter, noOfMen, noOfWoman, noOfKids } = useContext(FilterContext)

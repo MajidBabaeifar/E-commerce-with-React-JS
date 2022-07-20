@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
-import { FilterContext, CartContext } from './context/MyContext';
-import { useContext } from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { FilterContext, CartContext } from '../context/MyContext';
 import Ratings from './Ratings';
 
 const SingleProductPage = () => {

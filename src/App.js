@@ -1,22 +1,23 @@
-import './App.css';
-import Header from './components/Header'
-import Main from './components/Main';
-import Footer from './components/Footer';
-import MobileMenuContainer from './components/MobileMenuContainer';
-
 import { Route, Routes } from 'react-router';
-import ProductList from './components/ProductList';
-import BlogPostsList from './components/BlogPostsList';
-import Cart from './components/Cart';
-import WishList from './components/WishList';
+
+import './App.css';
+import Hedear from './components/headerfooter/Header';
+import Main from './components/home/Main';
+import ProductList from './components/shop/ProductList';
+import SingleProductPage from './components/shop/SingleProductPage';
+import BlogPostsList from './components/blog/BlogPostsList';
+import Cart from './components/shop/Cart';
+import WishList from './components/shop/WishList';
 import Error404 from './components/Error404';
-import SingleProductPage from './components/SingleProductPage';
+import Footer from './components/headerfooter/Footer';
+import MobileMenuContainer from './components/home/MobileMenuContainer';
+
 
 function App() {
   return (
     <>
       <div className="page-wrapper">
-        <Header />
+        <Hedear />
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/productlist' element={<ProductList />} />

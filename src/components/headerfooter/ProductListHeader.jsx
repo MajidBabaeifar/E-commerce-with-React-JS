@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
-import { CartContext } from './context/MyContext';
-import SearchQuery from './SearchQuery';
+import { CartContext } from './../context/MyContext';
+
+import SearchQuery from './../shop/SearchQuery';
 
 const ProductListHeader = () => {
     const { cartList, setCartList } = useContext(CartContext)

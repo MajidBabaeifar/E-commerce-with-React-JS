@@ -23,7 +23,7 @@ export default function PriceFilter({ value1, setValue1 }) {
     };
 
     return (
-        <Box sx={{ width: 250 }}>
+        <Box sx={{ width: 210 }}>
             <Slider
                 getAriaLabel={() => 'Minimum distance'}
                 value={value1}

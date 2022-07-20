@@ -1,7 +1,8 @@
 
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { FilterContext } from './context/MyContext';
+
+import { FilterContext } from '../context/MyContext';
 
 const SearchQuery = () => {
     const { setSearchLetters } = useContext(FilterContext)

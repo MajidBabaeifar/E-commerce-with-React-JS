@@ -1,6 +1,5 @@
-import data from './Data/Data.json'
 import { useContext } from 'react';
-import { PaginationContext } from "./context/MyContext";
+import { PaginationContext } from "../context/MyContext";
 
 const Pagination = (props) => {
     const { currentPage, setCurrentPage } = useContext(PaginationContext)

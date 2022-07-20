@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useContext, useRef } from 'react';
-import { CartContext, PaginationContext, FilterContext } from './context/MyContext';
+
+import { CartContext, PaginationContext, FilterContext } from '../context/MyContext';
 import Pagination from './pagination';
-import Filters from './Filters';
+import Filters from './Filter/Filters';
 import Ratings from './Ratings';
-import { useParams } from 'react-router';
 
 
 const ProductList = () => {
@@ -108,7 +108,6 @@ const ProductList = () => {
                                                                 (<div
                                                                     className=" btn-product btn-cart"
                                                                     onClick={() => setCartList(prevCart => {
-                                                                        console.log(cartList);
                                                                         return [...prevCart, { ...product, quantity: 1 }]
                                                                     })}
                                                                 >

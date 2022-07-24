@@ -1,4 +1,10 @@
+import { useContext } from 'react';
+import { WishListContext, CartContext } from './../context/MyContext';
+
 const WishList = () => {
+    const { wishList, setWishList } = useContext(WishListContext)
+    const { cartList, setCartList } = useContext(CartContext)
+
     return (
         <main className="main">
             <div className="page-header text-center" style={{ backgroundImage: "url('assets/images/page-header-bg.jpg')" }}>
@@ -30,79 +36,61 @@ const WishList = () => {
                         </thead>
 
                         <tbody>
-                            <tr>
+                            {wishList.map((product) => (<tr>
                                 <td className="product-col">
                                     <div className="product">
                                         <figure className="product-media">
                                             <a href="#">
-                                                <img src="assets/images/products/table/product-1.jpg" alt="Product image" />
+                                                <img src={`https://picsum.photos/id/${product.id + 500}/200/300`} alt="Product image" />
                                             </a>
                                         </figure>
 
                                         <h3 className="product-title">
-                                            <a href="#">Beige knitted elastic runner shoes</a>
+                                            <div>{product.name}</div>
                                         </h3>{/* End .product-title */}
                                     </div>{/* End .product */}
                                 </td>
-                                <td className="price-col">$84.00</td>
-                                <td className="stock-col"><span className="in-stock">In stock</span></td>
-                                <td className="action-col">
-                                    <div className="dropdown">
-                                        <button className="btn btn-block btn-outline-primary-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i className="icon-list-alt"></i>Select Options
-                                        </button>
+                                <td className="price-col">{product.price}</td>
+                                <td className="stock-col">
 
-                                        <div className="dropdown-menu">
-                                            <a className="dropdown-item" href="#">First option</a>
-                                            <a className="dropdown-item" href="#">Another option</a>
-                                            <a className="dropdown-item" href="#">The best option</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="remove-col"><button className="btn-remove"><i className="icon-close"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td className="product-col">
-                                    <div className="product">
-                                        <figure className="product-media">
-                                            <a href="#">
-                                                <img src="assets/images/products/table/product-2.jpg" alt="Product image" />
-                                            </a>
-                                        </figure>
+                                    {product.isAvailable ?
+                                        (<span className="in-stock">in stock</span>) :
+                                        (<span className="out-of-stock">Out of stock</span>)
+                                    }
 
-                                        <h3 className="product-title">
-                                            <a href="#">Blue utility pinafore denim dress</a>
-                                        </h3>{/* End .product-title */}
-                                    </div>{/* End .product */}
                                 </td>
-                                <td className="price-col">$76.00</td>
-                                <td className="stock-col"><span className="in-stock">In stock</span></td>
-                                <td className="action-col">
-                                    <button className="btn btn-block btn-outline-primary-2"><i className="icon-cart-plus"></i>Add to Cart</button>
-                                </td>
-                                <td className="remove-col"><button className="btn-remove"><i className="icon-close"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td className="product-col">
-                                    <div className="product">
-                                        <figure className="product-media">
-                                            <a href="#">
-                                                <img src="assets/images/products/table/product-3.jpg" alt="Product image" />
-                                            </a>
-                                        </figure>
 
-                                        <h3 className="product-title">
-                                            <a href="#">Orange saddle lock front chain cross body bag</a>
-                                        </h3>{/* End .product-title */}
-                                    </div>{/* End .product */}
-                                </td>
-                                <td className="price-col">$52.00</td>
-                                <td className="stock-col"><span className="out-of-stock">Out of stock</span></td>
-                                <td className="action-col">
-                                    <button className="btn btn-block btn-outline-primary-2 disabled">Out of Stock</button>
-                                </td>
-                                <td className="remove-col"><button className="btn-remove"><i className="icon-close"></i></button></td>
-                            </tr>
+
+
+                                {cartList.some(c => c.name === product.name)
+                                    ?
+                                    (
+                                        <td className="action-col">
+                                            <button
+                                                onClick={() =>
+                                                    setCartList((prevCart => prevCart.filter(c => c.name !== product.name)))
+                                                }
+                                                className="btn btn-block btn-outline-primary-2"
+                                            >
+                                                <i className="icon-cart-plus"></i>Remove From Cart
+                                            </button>
+                                        </td>
+                                    ) : (
+                                        <td className="action-col">
+                                            <button
+                                                onClick={() => setCartList(prevCart => {
+                                                    console.log(cartList);
+                                                    return [...prevCart, { ...product, quantity: 1 }]
+                                                })}
+                                                className="btn btn-block btn-outline-primary-2"
+                                            >
+                                                <i className="icon-cart-plus"></i>Add to Cart
+                                            </button>
+                                        </td>
+                                    )}
+
+                                <td className="remove-col"><button onClick={() => setWishList(prevWishList => prevWishList.filter(c => c.name !== product.name))} className="btn-remove"><i className="icon-close"></i></button></td>
+                            </tr>))}
                         </tbody>
                     </table>{/* End .table table-wishlist */}
                     <div className="wishlist-share">

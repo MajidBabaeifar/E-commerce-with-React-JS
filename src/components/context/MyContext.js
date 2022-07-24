@@ -5,6 +5,8 @@ export const CartContext = createContext();
 export const PaginationContext = createContext();
 export const FilterContext = createContext();
 export const LoginRegister = createContext();
+export const WishListContext = createContext();
+
 
 const MyContext = ({ children }) => {
     const [cartList, setCartList] = useState([])
@@ -18,7 +20,7 @@ const MyContext = ({ children }) => {
     })
     const [searchLetters, setSearchLetters] = useState("")
     const [userName, setUserName] = useState("")
-
+    const [wishList, setWishList] = useState([])
 
     const noOfMen = data.filter((c) => c.group == 1).length
     const noOfWoman = data.filter((c) => c.group == 2).length
@@ -70,21 +72,23 @@ const MyContext = ({ children }) => {
 
 
     return (
-        <LoginRegister.Provider value={{ userName, setUserName }}>
-            <FilterContext.Provider value={{
-                data, value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
-            }}>
-                <PaginationContext.Provider value={{
-                    currentPage, setCurrentPage
+        <WishListContext.Provider value={{ wishList, setWishList }}>
+            <LoginRegister.Provider value={{ userName, setUserName }}>
+                <FilterContext.Provider value={{
+                    data, value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
                 }}>
-                    <CartContext.Provider value={{
-                        cartList, setCartList
+                    <PaginationContext.Provider value={{
+                        currentPage, setCurrentPage
                     }}>
-                        {children}
-                    </CartContext.Provider>
-                </PaginationContext.Provider>
-            </FilterContext.Provider>
-        </LoginRegister.Provider>
+                        <CartContext.Provider value={{
+                            cartList, setCartList
+                        }}>
+                            {children}
+                        </CartContext.Provider>
+                    </PaginationContext.Provider>
+                </FilterContext.Provider>
+            </LoginRegister.Provider>
+        </WishListContext.Provider>
     );
 }
 

@@ -22,7 +22,7 @@ const SimpleHedear = () => {
                                 <Link to="#">Links</Link>
                                 <ul>
                                     <li><Link to="#"><i className="icon-phone"></i>Call: +0123 456 789</Link></li>
-                                    <li><Link to="#"><i className="icon-heart-o"></i>My Wishlist<span>(3)</span></Link></li>
+                                    <li><Link to="/wishlist"><i className="icon-heart-o"></i>My Wishlist<span>(3)</span></Link></li>
                                     <li><Link to="#">About Us</Link></li>
                                     <li><Link to="#">Contact Us</Link></li>
                                     <li><Link to="/registerandlogin"><i className="icon-user"></i>{userName ? userName.toLowerCase() : "Login"}</Link></li>

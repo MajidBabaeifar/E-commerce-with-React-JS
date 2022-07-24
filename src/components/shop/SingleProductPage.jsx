@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 import { FilterContext, CartContext } from '../context/MyContext';
 import Ratings from './Ratings';
+import { WishListContext } from './../context/MyContext';
 
 const SingleProductPage = () => {
     const { productId } = useParams();
     const [pId, setpId] = useState(productId)
     const { data } = useContext(FilterContext)
     const { cartList, setCartList } = useContext(CartContext)
+    const { wishList, setWishList } = useContext(WishListContext)
     const product = data.find((elmnt) => elmnt.id === parseInt(pId))
     const [selectedImage, setSelectedImage] = useState(0)
     const [modal, setModal] = useState(false)
@@ -136,9 +138,27 @@ const SingleProductPage = () => {
                                             </div>)
                                         }
 
-                                        <div className="details-action-wrapper">
-                                            <a href="#" className="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                        </div>{/* End .details-action-wrapper */}
+                                        {wishList.some((c) => c.name == product.name) ?
+                                            (
+                                                <div
+                                                    onClick={() => setWishList(
+                                                        (prevWishList => prevWishList.filter((c) => c.name !== product.name))
+                                                    )}
+                                                    className="details-action-wrapper"
+                                                >
+                                                    <div className="btn-product btn-wishlist" title="Wishlist"><span>Remove From Wishlist</span></div>
+                                                </div>
+                                            )
+                                            :
+                                            (
+                                                <div
+                                                    onClick={() => setWishList(prevWishList => [...prevWishList, product])}
+                                                    className="details-action-wrapper"
+                                                >
+                                                    <div className="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></div>
+                                                </div>
+                                            )
+                                        }
                                     </div>{/* End .product-details-action */}
 
                                     <div className="product-details-footer">

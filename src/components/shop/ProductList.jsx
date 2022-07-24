@@ -5,12 +5,14 @@ import { CartContext, PaginationContext, FilterContext } from '../context/MyCont
 import Pagination from './pagination';
 import Filters from './Filter/Filters';
 import Ratings from './Ratings';
+import { WishListContext } from './../context/MyContext';
 
 
 const ProductList = () => {
     const { cartList, setCartList } = useContext(CartContext)
     const { currentPage } = useContext(PaginationContext)
     const { filterData, handleFilter, category, ProductsInThisPage } = useContext(FilterContext)
+    const { wishList, setWishList } = useContext(WishListContext)
     const myRef = useRef(null)
 
 
@@ -27,7 +29,12 @@ const ProductList = () => {
                 break;
         }
     }
-
+    const addToWishList = (product) => {
+        setWishList(prevWishList => [...prevWishList, product])
+    }
+    const removeFromWishList = (product) => {
+        setWishList(prevWishList => prevWishList.filter(c => c.name !== product.name))
+    }
 
     return (
         <>
@@ -91,7 +98,15 @@ const ProductList = () => {
                                                         </Link>
 
                                                         <div className="product-action-vertical">
-                                                            <a href="#" className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+
+                                                            {wishList.some(c => c.name === product.name) ?
+                                                                (
+                                                                    <div onClick={() => removeFromWishList(product)} className="btn-product-icon btn-wishlist btn-expandable"><span>remove from wishlist</span></div>
+                                                                ) :
+                                                                (
+                                                                    <div onClick={() => addToWishList(product)} className="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></div>
+                                                                )}
+
                                                             <Link to={`./${product.id}`} className="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></Link>
                                                         </div>{/* End .product-action-vertical */}
 

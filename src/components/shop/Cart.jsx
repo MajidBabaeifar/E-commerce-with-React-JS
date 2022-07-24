@@ -1,12 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from '../context/MyContext';
 import { Link } from 'react-router-dom';
 
 
 const Cart = () => {
 
-    useEffect(() => {
-    }, [])
 
     const { cartList, setCartList } = useContext(CartContext)
     const calculateTotal = cartList.reduce(

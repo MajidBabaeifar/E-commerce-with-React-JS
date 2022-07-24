@@ -2,8 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-const Error404 = () => {
+const Error404 = (props) => {
     const navigate = useNavigate()
+    console.log(props);
 
     return (
         <main className="main">

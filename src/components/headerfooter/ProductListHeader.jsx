@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
-import { CartContext } from './../context/MyContext';
+import { CartContext, LoginRegister } from './../context/MyContext';
 
 import SearchQuery from './../shop/SearchQuery';
 
 const ProductListHeader = () => {
     const { cartList, setCartList } = useContext(CartContext)
+    const {userName, setUserName} = useContext(LoginRegister)
     const calculateTotal = cartList.reduce(
         (previousValue, currentValue) => previousValue + parseInt(currentValue.price) * currentValue.quantity,
         0
     );
-    console.log(window.location.href)
 
+    console.log(userName);
     return (
         <header className="header header-8">
             <div className="header-top">
@@ -25,7 +26,7 @@ const ProductListHeader = () => {
                                     <li><Link to="#"><i className="icon-heart-o"></i>My Wishlist<span>(3)</span></Link></li>
                                     <li><Link to="#">About Us</Link></li>
                                     <li><Link to="#">Contact Us</Link></li>
-                                    <li><Link to="#" data-toggle="modal"><i className="icon-user"></i>Login</Link></li>
+                                    <li><Link to="/registerandlogin"><i className="icon-user"></i>{userName ? userName : "Login"}</Link></li>
                                 </ul>
                             </li>
                         </ul>{/* End .top-menu  */}

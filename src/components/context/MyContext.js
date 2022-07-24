@@ -3,7 +3,8 @@ import data from '../Data/Data.json'
 
 export const CartContext = createContext();
 export const PaginationContext = createContext();
-export const FilterContext = createContext()
+export const FilterContext = createContext();
+export const LoginRegister = createContext();
 
 const MyContext = ({ children }) => {
     const [cartList, setCartList] = useState([])
@@ -16,6 +17,7 @@ const MyContext = ({ children }) => {
         sortBy: ""
     })
     const [searchLetters, setSearchLetters] = useState("")
+    const [userName, setUserName] = useState("")
 
 
     const noOfMen = data.filter((c) => c.group == 1).length
@@ -68,19 +70,21 @@ const MyContext = ({ children }) => {
 
 
     return (
-        <FilterContext.Provider value={{
-            data, value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
-        }}>
-            <PaginationContext.Provider value={{
-                currentPage, setCurrentPage
+        <LoginRegister.Provider value={{ userName, setUserName }}>
+            <FilterContext.Provider value={{
+                data, value1, setValue1, category, setCategory, filterData, handleFilter, ProductsInThisPage, noOfMen, noOfWoman, noOfKids, setSearchLetters
             }}>
-                <CartContext.Provider value={{
-                    cartList, setCartList
+                <PaginationContext.Provider value={{
+                    currentPage, setCurrentPage
                 }}>
-                    {children}
-                </CartContext.Provider>
-            </PaginationContext.Provider>
-        </FilterContext.Provider>
+                    <CartContext.Provider value={{
+                        cartList, setCartList
+                    }}>
+                        {children}
+                    </CartContext.Provider>
+                </PaginationContext.Provider>
+            </FilterContext.Provider>
+        </LoginRegister.Provider>
     );
 }
 

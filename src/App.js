@@ -11,6 +11,7 @@ import WishList from './components/shop/WishList';
 import Error404 from './components/Error404';
 import Footer from './components/headerfooter/Footer';
 import MobileMenuContainer from './components/home/MobileMenuContainer';
+import RegisterAndLogin from './components/loginandregister/RegisterAndLogin';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/blogpostslist' element={<BlogPostsList />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/wishlist' element={<WishList />} />
+          <Route path='/registerandlogin' element={<RegisterAndLogin />} />
           <Route path='/*' element={<Error404 />} />
         </Routes>
         <Footer />

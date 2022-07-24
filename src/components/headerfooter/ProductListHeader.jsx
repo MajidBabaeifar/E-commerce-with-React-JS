@@ -43,7 +43,7 @@ const ProductListHeader = () => {
                         </button>
 
                         <Link to="/" className="logo">
-                            <h6 className="--logo">majid babaeifar</h6>
+                            <h6 className="text-uppercase --logo">majid babaeifar</h6>
                         </Link>
                     </div>{/* End .header-left  */}
 

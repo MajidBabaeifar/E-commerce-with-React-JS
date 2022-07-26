@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
-import { CartContext, LoginRegister } from './../context/MyContext';
+import { CartContext, LoginRegister, WishListContext } from './../context/MyContext';
 
 import SearchQuery from './../shop/SearchQuery';
 
 const ProductListHeader = () => {
     const { cartList, setCartList } = useContext(CartContext)
-    const {userName, setUserName} = useContext(LoginRegister)
+    const { userName, setUserName } = useContext(LoginRegister)
+    const { wishList } = useContext(WishListContext)
     const calculateTotal = cartList.reduce(
         (previousValue, currentValue) => previousValue + parseInt(currentValue.price) * currentValue.quantity,
         0
@@ -23,7 +24,9 @@ const ProductListHeader = () => {
                                 <Link to="#">Links</Link>
                                 <ul>
                                     <li><Link to="#"><i className="icon-phone"></i>Call: +0123 456 789</Link></li>
-                                    <li><Link to="/wishlist"><i className="icon-heart-o"></i>My Wishlist<span>(3)</span></Link></li>
+                                    <li><Link to="/wishlist"><i className="icon-heart-o"></i>My Wishlist<span>
+                                        {`(${wishList.length})`}
+                                    </span></Link></li>
                                     <li><Link to="#">About Us</Link></li>
                                     <li><Link to="#">Contact Us</Link></li>
                                     <li><Link to="/registerandlogin"><i className="icon-user"></i>{userName ? userName : "Login"}</Link></li>
